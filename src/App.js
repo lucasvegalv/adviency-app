@@ -35,10 +35,6 @@ const handleChange = (e) => {
   }
   
   setValue('')
-    // PENDING VALIDATION
-    // if(items.find(item => item.value = value)) {
-    //   alert("Este item ya lo tenes!")
-    // }
   }
 
   // ADD THE INPUT PRESSING 'ENTER' KEY 
@@ -50,12 +46,18 @@ const handleChange = (e) => {
     setItems(filteredItems)
     console.log(items)
   }
-    
+  
+  // DELETE ALL ITEMS
+  const handleDeleteAllItems = () => {
+    const deletedAll = items.filter(item => item != item)
+    setItems(deletedAll)
+  }
  
-
-
   // RENDER THE ITEM LIST
   const itemList = items.map(item => (<li key={item.id} >{item.value} <button onClick={() => handleDelete(item.id)}>X</button></li>))
+
+  // ALERT THE USER IF THERE'S NO ITEMS YET
+  const noItemsAlert = items.length === 0 && <p>Christmas is coming! Let's buy some cool things</p>
 
   return (
     <>
@@ -66,10 +68,12 @@ const handleChange = (e) => {
 
       <div>
         <input type="text" onKeyDown={handleKeyDown} onChange={handleChange} value={value} placeholder="Add a present to buy" autoFocus/>
-        <button  onClick={handleClick}>Add</button>
+        <button onClick={handleClick}>Add</button>
         <ul>
           {itemList}
+          {noItemsAlert}
         </ul>
+        <button onClick={handleDeleteAllItems}>Delete All</button>
       </div>
     </>
   );
