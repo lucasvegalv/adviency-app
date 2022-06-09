@@ -7,6 +7,7 @@ function App() {
 const [ value, setValue ] = useState('')
 const [ items, setItems ] = useState([])
 const [ quant, setQuant ] = useState('')
+const [ img, setImg ] = useState('')
 
 // Generate Universal Unique IDs
 const uniqueId = uuid()
@@ -14,16 +15,17 @@ const uniqueId = uuid()
 // EVENT HANDLER FUNCTIONS
 
 // Save Input Changes
-const handleChange = (e) => {
+  const handleChange = (e) => {
   setValue(e.target.value)
   }
   
   
-  // Add Input To The List
+// Add Input To The List
   const handleAdd = () => {
     const item = {
       id: uniqueId,
       value: value,
+      img: img,
       quant: quant,
       completed: false
     } 
@@ -58,13 +60,25 @@ const handleChange = (e) => {
     console.log(quant)
   }
 
+  // Handle Image Input 
+  const handleItemImage = (e) => {
+    const url = e.target.value
+    setImg(url)
+    console.log(url)
+    console.log(img)
+  }
+
   // Render The Item's List
   const itemList = items.map(item => 
     (
-      <li key={item.id}> {item.value} {(item.quant) > 1 && `(${item.quant})`} <button onClick={() => handleDelete(item.id)}>X</button> </li>
+      <li key={item.id}> 
+        <img src={item.img} height="40px"/>
+        {item.value} 
+        {(item.quant) > 1 && `(${item.quant})`} 
+        <button onClick={() => handleDelete(item.id)}>X</button> 
+      </li>
     ))
   
-  // Conditional Item Quant Render  
   // Alert the user if there's no items yet
   const noItemsAlert = items.length === 0 && <p>Christmas is coming! Let's buy some cool things</p>
 
@@ -77,6 +91,7 @@ const handleChange = (e) => {
 
       <div>
         <input type="text" onKeyDown={handleKeyDown} onChange={handleChange} value={value} placeholder="Add a present to buy" autoFocus/>
+        <input type="url" name="itemImg" id="itemImg" onChange={handleItemImage}/>
         <select name="selectNumbers" id="selectNumbers" onChange={handleSelectQuant}>
           <option value="1">1</option>
           <option value="2">2</option>
