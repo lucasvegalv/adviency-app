@@ -4,19 +4,14 @@ import Title from './styled-components/Title'
 import { Button } from './styled-components/Button'
 import { CardWrapper, BtnWrapper, ColumnWrapper } from './styled-components/Wrapper'
 
+// NECESITAMOS TRAER de Popup.jsx LA VARIBALE "items" DEL ESTADO SETITEMS ACA PARA PODER HACER EL MAP Y RENDERIZAR LA LISTA
 
 function App() {
 
 // HOOKS 
-  const [ items, setItems ] = useState([])
-  const [ popup, setPopup ] = useState(false)
+const [ popup, setPopup ] = useState(false)
 
 //FUNCTIONS
-// Delete Item
-  const handleDelete = (id) => {
-    const filteredItems = items.filter(items => items.id !== id)
-    setItems(filteredItems)
-  }
   
 // Delete All Items
   const handleDeleteAllItems = () => {
@@ -28,17 +23,6 @@ function App() {
   const handleTogglePopup = () => {
     setPopup(!popup)
   }
-
-// Render The Item's List
-  const itemList = items.map(item => 
-    (
-      <li key={item.id}> 
-        <img src={item.img} height="40px"/>
-        {item.value} 
-        {(item.quant) > 1 && `(${item.quant})`} 
-        <button onClick={() => handleDelete(item.id)}>X</button> 
-      </li>
-    ))
   
   // Alert the user if there's no items yet
   const noItemsAlert = items.length === 0 && <small>Christmas is coming! Let's buy some cool things</small>
@@ -52,7 +36,7 @@ function App() {
         <Button onClick={handleTogglePopup}>Add Item</Button>
         { popup && <Popup/> }
         <ul>
-          {itemList}
+          {/* {itemList} */}
           {noItemsAlert}
         </ul>
         <Button onClick={handleDeleteAllItems}>Delete All</Button>

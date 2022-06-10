@@ -25,7 +25,7 @@ function Popup() {
       img: img,
       quant: quant,
       completed: false
-      } 
+    } 
       
     if(value !== '') {
       setItems([...items, item])
@@ -34,6 +34,12 @@ function Popup() {
     }
     setValue('')
   }
+
+// Delete Item
+  const handleDelete = (id) => {
+    const filteredItems = items.filter(items => items.id !== id)
+    setItems(filteredItems)
+}
 
   // Save Input Changes
   const handleChange = (e) => {
@@ -49,16 +55,24 @@ function Popup() {
     const handleSelectQuant = (e) => {
       const itemQuant = e.target.value
       setQuant(itemQuant)
-      console.log(quant)
     }
   
   // Handle Image Input 
     const handleItemImage = (e) => {
       const url = e.target.value
       setImg(url)
-      console.log(url)
-      console.log(img)
     }
+
+    // Render The Item's List
+  const itemList = items.map(item => 
+    (
+      <li key={item.id}> 
+        <img src={item.img} height="40px"/>
+        {item.value} 
+        {(item.quant) > 1 && `(${item.quant})`} 
+        <button onClick={() => handleDelete(item.id)}>X</button> 
+      </li>
+    ))
 
   return (
     <>
