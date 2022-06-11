@@ -2,26 +2,18 @@ import styled from 'styled-components'
 import colors from './Theme'
 
 const Input = styled.input`
-  width: 100%;
+  width: 40%;
   padding: 0.5em 0.5em;
-  border: solid 1.25px ${colors.btn};
-  border-radius: 0.5em;
-
-  &:focus {
-   border-color: ${colors.btn};
-}
-`
+  border: solid 1px ${colors.subtitle};
+  border-radius: 0.2em;
+`;
 
 const Select = styled.select`
-  width: 20%;
+  min-width: 10%;
   padding: 0.5em 0.5em;
-  border: solid 1.25px ${colors.btn};
-  border-radius: 0.5em;
+  border: solid 1px ${colors.subtitle};
+  border-radius: 0.2em;
   text-align: center;
-
-  &:focus {
-   border-color: ${colors.btn};
-  }
-`
+`;
 
 export { Input, Select }

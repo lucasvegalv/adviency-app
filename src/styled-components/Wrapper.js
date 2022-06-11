@@ -18,11 +18,12 @@ const CardWrapper = styled(Wrapper)`
   background-color: ${colors.primary};
   border: solid 1px ${colors.subtitle};
   padding: 1em;
+  width: 60%;
 `
 
 const SpacedBtwWrapper = styled(Wrapper)`
   justify-content: space-between;
-  width: 100%;
+  gap: 0.5em;
 `
 
 export { Wrapper, CardWrapper, SpacedBtwWrapper, ColumnWrapper }

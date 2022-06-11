@@ -10,27 +10,34 @@ const Button = styled.button`
   font-weight: 600;
   width: 100%;
   cursor: pointer;
-  transition: 0.5s;
+  transition: 0.25s;
 
   &:hover {
     background-color: ${colors.btnHover};
   }
 `
 
-const PopupAddBtn = styled(Button)`
-  width: 40%;
+const AddButton = styled(Button)`
+  width: 20%;
+  height: 10%;
   border: solid 1px
 `;
-const PopupCancelBtn = styled(Button)`
+
+const DeleteAllBtn = styled(Button)`
   color: ${colors.red};
-  width: 40%;
+  width: 100%;
   border: solid 1px ${colors.red};
   background-color: ${colors.primary};
-
   &:hover {
     background-color: ${colors.red};
     color: ${colors.primary};
   }
 `;
 
-export { Button, PopupAddBtn, PopupCancelBtn }
+const DeleteItemBtn = styled(DeleteAllBtn)`
+  max-width: 2em;
+  height: 2em;
+  padding: 0;
+`
+
+export { Button, AddButton, DeleteAllBtn, DeleteItemBtn }
