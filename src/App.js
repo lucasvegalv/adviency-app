@@ -4,6 +4,7 @@ import { Title, UnList, ListItem } from './styled-components/Tags'
 import { Button, AddButton, DeleteAllBtn, DeleteItemBtn } from './styled-components/Button'
 import { Wrapper, CardWrapper, BtnWrapper, ColumnWrapper, SpacedBtwWrapper } from './styled-components/Wrapper'
 import { Input, Select } from './styled-components/Input'
+import { AlchemyWebSocketProvider } from '@ethersproject/providers'
 
 
 function App() {
@@ -11,9 +12,10 @@ function App() {
 // HOOKS 
   const [ items, setItems ] = useState([])
   const [ value, setValue ] = useState('')
-  // const [ imgValue, setImgValue ] = useState('')
   const [ price, setPrice ] = useState('')
   const [ quant, setQuant ] = useState('')
+  const [ total, setTotal ] = useState(0)
+  // const [ imgValue, setImgValue ] = useState('')
 
 //FUNCTIONS
 
@@ -58,22 +60,27 @@ function App() {
 // Add Input To The List
 const handleAdd = () => {
   
-    // const defaultImg = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS83g_cMIkYmsVOSF_pn9jkF9Ty849X-2vzaA&usqp=CAU'
+  // const defaultImg = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS83g_cMIkYmsVOSF_pn9jkF9Ty849X-2vzaA&usqp=CAU'
     
-    const item = {
-      id: uniqueId,
-      value: value,
-      price: quant >= 1 ? price * quant : price,
-      // img: isValidUrl(imgValue) ? imgValue : defaultImg, 
-      // quant: quant,
-      completed: false
-    } 
-        
-    if(value !== '') {
-      setItems([...items, item])
-    } else {
-      alert("Please enter a present")
-    }
+  const item = {
+    id: uniqueId,
+    value: value,
+    price: quant > 1 ? price * quant : +price,
+    completed: false
+    // img: isValidUrl(imgValue) ? imgValue : defaultImg, 
+  } 
+  
+  const pricesArr = items.map(item => item.price)
+  const totalPrices = pricesArr.reduce((acc, price) => acc += price, 0)
+
+  if(value !== '') {
+    setTotal(totalPrices)
+    setItems([...items, item])
+    console.log(totalPrices)
+    console.log(pricesArr)
+  } else {
+    alert("Please enter a present")
+  }
   setValue('')
   setPrice('')
   // setImgValue('')
@@ -91,7 +98,7 @@ const handleAdd = () => {
 
         <SpacedBtwWrapper>
           {/* <img src={item.img} style={{height:"3em", width:"5em"}}/> */}
-          <div style={{"margin-right": "3em", width: "5em", "text-align": "left"}}>
+          <div style={{marginRight: "3em", width: "5em", textAlign: "left"}}>
             {item.value} 
           </div>
           {item.price > 0 ? `$${item.price}` : ''}
@@ -102,7 +109,7 @@ const handleAdd = () => {
     ))
   
   // Alert the user if there's no items yet
-  const noItemsAlert = items.length === 0 && <p style={{margin: "1em", width: "100%", "text-align": "left"}}>Let's buy some cool things!</p>
+  const noItemsAlert = items.length === 0 && <p style={{margin: "1em", width: "100%", textAlign: "left"}}>Let's buy some cool things!</p>
 
   return (
   <CardWrapper>
@@ -134,9 +141,9 @@ const handleAdd = () => {
       {noItemsAlert}
     </UnList>
 
-    <hr style={{color: "black", "background-color":"black", width:"100%", "margin-top":"0"}}/>
+    <hr style={{color: "black", backgroundColor:"black", width:"100%", marginTop:"0"}}/>
 
-    <h3 style={{width: "100%", "text-align": "left", margin: "0"}}>Total: </h3>
+    <h3 style={{width: "100%", textAlign: "left", margin: "0"}}>Total: ${total}</h3>
 
     <DeleteAllBtn onClick={handleDeleteAllItems}>Delete All</DeleteAllBtn>
   </CardWrapper>

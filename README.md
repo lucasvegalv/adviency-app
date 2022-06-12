@@ -1,6 +1,3 @@
 ## About Adviency
-Adviency is one of the challenges that Goncy code in his streams and invite us to do them and practice.
-He wrote a thread on Twitter to explain the dynamic and the functionalities that we have to add every day.
-
-<a href="https://github.com/goncy/interview-challenges">Gonzy's Challenges Repo</a>
-<a href="https://twitter.com/goncy/status/1466050967808401409">Gonzy's Thread on Twitter </a>
+Adviency is one of the challenges that @GonzaloPozzo, AKA Goncy :), coded in his streams and invited us to do them and practice.
+I did some changes but the idea is the same!
