@@ -63,9 +63,9 @@ const handleAdd = () => {
     const item = {
       id: uniqueId,
       value: value,
-      price: price, 
+      price: quant >= 1 ? price * quant : price,
       // img: isValidUrl(imgValue) ? imgValue : defaultImg, 
-      quant: quant,
+      // quant: quant,
       completed: false
     } 
         
@@ -91,7 +91,7 @@ const handleAdd = () => {
 
         <SpacedBtwWrapper>
           {/* <img src={item.img} style={{height:"3em", width:"5em"}}/> */}
-          {item.value} {(item.quant) > 1 && `(x${item.quant})`} {item.price !== '' && `($${item.price})`}
+          {item.value} {item.price > 0 && item.price}
         </SpacedBtwWrapper>
 
         <DeleteItemBtn onClick={() => handleDelete(item.id)}>X</DeleteItemBtn> 
