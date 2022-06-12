@@ -50,15 +50,15 @@ function App() {
     setQuant(itemQuant)
   }
   
-  const isValidUrl = (str) => {
-    const matchPattern = /^(?:\w+:)?\/\/([^\s\.]+\.\S{2}|localhost[\:?\d]*)\S*$/;
-    return matchPattern.test(str);
-  }
+  // const isValidUrl = (str) => {
+  //   const matchPattern = /^(?:\w+:)?\/\/([^\s\.]+\.\S{2}|localhost[\:?\d]*)\S*$/;
+  //   return matchPattern.test(str);
+  // }
 
 // Add Input To The List
 const handleAdd = () => {
   
-    const defaultImg = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS83g_cMIkYmsVOSF_pn9jkF9Ty849X-2vzaA&usqp=CAU'
+    // const defaultImg = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS83g_cMIkYmsVOSF_pn9jkF9Ty849X-2vzaA&usqp=CAU'
     
     const item = {
       id: uniqueId,
@@ -75,8 +75,8 @@ const handleAdd = () => {
       alert("Please enter a present")
     }
   setValue('')
-  // setImgValue('')
   setPrice('')
+  // setImgValue('')
 }
   
 // Add the input pressing 'enter' key
@@ -91,7 +91,10 @@ const handleAdd = () => {
 
         <SpacedBtwWrapper>
           {/* <img src={item.img} style={{height:"3em", width:"5em"}}/> */}
-          {item.value} {item.price > 0 && item.price}
+          <div style={{"margin-right": "3em", width: "5em", "text-align": "left"}}>
+            {item.value} 
+          </div>
+          {item.price > 0 ? `$${item.price}` : ''}
         </SpacedBtwWrapper>
 
         <DeleteItemBtn onClick={() => handleDelete(item.id)}>X</DeleteItemBtn> 
@@ -99,13 +102,13 @@ const handleAdd = () => {
     ))
   
   // Alert the user if there's no items yet
-  const noItemsAlert = items.length === 0 && <p style={{margin: "1em"}}>Let's buy some cool things!</p>
+  const noItemsAlert = items.length === 0 && <p style={{margin: "1em", width: "100%", "text-align": "left"}}>Let's buy some cool things!</p>
 
   return (
   <CardWrapper>
     <Title>Adviency</Title>
 
-    <SpacedBtwWrapper>
+    <SpacedBtwWrapper style={{width: "100%"}}>
       <Input type="text" onKeyDown={handleKeyDown} onChange={handleItemChange} value={value} placeholder="Name" autoFocus/>
       <Input type="number" onKeyDown={handleKeyDown} onChange={handlePriceChange} value={price} placeholder="Price"/>
       {/* <Input type="url" onKeyDown={handleKeyDown} name="itemImg" id="itemImg" onChange={handleImgChange} value={imgValue} placeholder="Image URL"/> */}
@@ -130,6 +133,10 @@ const handleAdd = () => {
       {itemList}
       {noItemsAlert}
     </UnList>
+
+    <hr style={{color: "black", "background-color":"black", width:"100%", "margin-top":"0"}}/>
+
+    <h3 style={{width: "100%", "text-align": "left", margin: "0"}}>Total: </h3>
 
     <DeleteAllBtn onClick={handleDeleteAllItems}>Delete All</DeleteAllBtn>
   </CardWrapper>

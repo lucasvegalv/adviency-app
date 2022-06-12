@@ -35,8 +35,8 @@ const DeleteAllBtn = styled(Button)`
 `;
 
 const DeleteItemBtn = styled(DeleteAllBtn)`
-  max-width: 2em;
-  height: 2em;
+  max-width: 1.75em;
+  height: 1.75em;
   padding: 0;
 `
 

@@ -22,6 +22,7 @@ const ListItem = styled.li`
   text-align: left;
   justify-content: space-between;
   width: 100%;
+  margin-bottom: 0.5em;
 `
 
 export { Title, UnList, ListItem }

@@ -24,6 +24,7 @@ const CardWrapper = styled(Wrapper)`
 const SpacedBtwWrapper = styled(Wrapper)`
   justify-content: space-between;
   gap: 0.5em;
+  align-items: center;
 `
 
 export { Wrapper, CardWrapper, SpacedBtwWrapper, ColumnWrapper }
