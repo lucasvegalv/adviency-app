@@ -25,8 +25,14 @@ function App() {
 // Delete Item
   const handleDelete = (id) => {
     const filteredItems = items.filter(items => items.id !== id)
+    const deletedItem = items.filter(items => items.id === id)
+    const deletedItemPrice = deletedItem[0].price
+    const filteredTotal = +total - deletedItemPrice
+    
     setItems(filteredItems)
+    setTotal(filteredTotal)    
   }
+
 // Save Input Changes
   const handleItemChange = (e) => {
     setValue(e.target.value)
@@ -44,6 +50,7 @@ function App() {
   const handleDeleteAllItems = () => {
     const deletedAll = items.filter(item => item !== item)
     setItems(deletedAll)
+    setTotal(0)
   }
 
 // Select Item Quantity
@@ -65,19 +72,17 @@ const handleAdd = () => {
   const item = {
     id: uniqueId,
     value: value,
-    price: quant > 1 ? price * quant : +price,
+    price: quant > 1 ? parseFloat(price) * quant : parseFloat(price),
     completed: false
     // img: isValidUrl(imgValue) ? imgValue : defaultImg, 
   } 
   
-  const pricesArr = items.map(item => item.price)
-  const totalPrices = pricesArr.reduce((acc, price) => acc += price, 0)
+  const pricesArr = items.map(item => parseFloat(item.price))
+  const totalPrices = (pricesArr.reduce((acc, price) => acc += price, 0)).toLocaleString()
 
   if(value !== '') {
     setTotal(totalPrices)
     setItems([...items, item])
-    console.log(totalPrices)
-    console.log(pricesArr)
   } else {
     alert("Please enter a present")
   }
@@ -101,7 +106,7 @@ const handleAdd = () => {
           <div style={{marginRight: "3em", width: "5em", textAlign: "left"}}>
             {item.value} 
           </div>
-          {item.price > 0 ? `$${item.price}` : ''}
+          {item.price > 0 ? `$${(item.price).toLocaleString()}` : ''}
         </SpacedBtwWrapper>
 
         <DeleteItemBtn onClick={() => handleDelete(item.id)}>X</DeleteItemBtn> 
@@ -116,8 +121,8 @@ const handleAdd = () => {
     <Title>Adviency</Title>
 
     <SpacedBtwWrapper style={{width: "100%"}}>
-      <Input type="text" onKeyDown={handleKeyDown} onChange={handleItemChange} value={value} placeholder="Name" autoFocus/>
-      <Input type="number" onKeyDown={handleKeyDown} onChange={handlePriceChange} value={price} placeholder="Price"/>
+      <Input type="text" onKeyDown={handleKeyDown} onChange={handleItemChange} value={value} placeholder="Fruits" autoFocus/>
+      <Input type="text" step="0.1" min="0" onKeyDown={handleKeyDown} onChange={handlePriceChange} value={price} placeholder="100.50"/>
       {/* <Input type="url" onKeyDown={handleKeyDown} name="itemImg" id="itemImg" onChange={handleImgChange} value={imgValue} placeholder="Image URL"/> */}
 
       <Select onKeyDown={handleKeyDown} name="selectNumbers" id="selectNumbers" onChange={handleSelectQuant}>
