@@ -1,17 +1,18 @@
 import React from 'react'
 import { ListItem } from '../styled-components/Tags'
-import { SpacedBtwWrapper } from '../styled-components/Wrapper'
+import { SpacedBtwWrapper, Wrapper } from '../styled-components/Wrapper'
 import { DeleteItemBtn } from '../styled-components/Button'
 
-function ItemList({ id, value, price, onClickFunction }) {
+function ItemList({ id, value, price, quant, onClickFunction }) {
+  const valueAndQuant = `${value} - (x${quant})`
   return (
       <ListItem> 
 
         <SpacedBtwWrapper>
           {/* <img src={item.img} style={{height:"3em", width:"5em"}}/> */}
-          <div style={{marginRight: "3em", width: "5em", textAlign: "left"}}>
-            {value} 
-          </div>
+          <Wrapper style={{ width: "7em", textAlign: "left" }}>
+            { quant > 1 ? valueAndQuant : `${value}` } 
+          </Wrapper>
           {price > 0 ? `$${(price).toLocaleString()}` : ''}
         </SpacedBtwWrapper>
 

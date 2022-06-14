@@ -9,7 +9,7 @@ const Input = styled.input`
 `;
 
 const Select = styled.select`
-  min-width: 10%;
+  min-width: 3.75em;
   padding: 0.5em 0.5em;
   border: solid 1px ${colors.subtitle};
   border-radius: 0.2em;
