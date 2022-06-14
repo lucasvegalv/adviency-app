@@ -4,8 +4,11 @@ import { Title, UnList, ListItem } from './styled-components/Tags'
 import { Button, AddButton, DeleteAllBtn, DeleteItemBtn } from './styled-components/Button'
 import { Wrapper, CardWrapper, BtnWrapper, ColumnWrapper, SpacedBtwWrapper } from './styled-components/Wrapper'
 import { Input, Select } from './styled-components/Input'
-import { AlchemyWebSocketProvider } from '@ethersproject/providers'
-
+import Total from './components/Total'
+import HLine from './components/HorizLine'
+import SelectInput from './components/SelectInput'
+import DeleteAllButton from './components/DeleteAllBtn'
+import ItemList from './components/ItemList'
 
 function App() {
 
@@ -22,16 +25,7 @@ function App() {
 // Generate Universal Unique IDs
   const uniqueId = uuid()
 
-// Delete Item
-  const handleDelete = (id) => {
-    const filteredItems = items.filter(items => items.id !== id)
-    const deletedItem = items.filter(items => items.id === id)
-    const deletedItemPrice = deletedItem[0].price
-    const filteredTotal = +total - deletedItemPrice
-    
-    setItems(filteredItems)
-    setTotal(filteredTotal)    
-  }
+
 
 // Save Input Changes
   const handleItemChange = (e) => {
@@ -73,12 +67,12 @@ const handleAdd = () => {
     id: uniqueId,
     value: value,
     price: quant > 1 ? parseFloat(price) * quant : parseFloat(price),
-    completed: false
+    isCompleted: false
     // img: isValidUrl(imgValue) ? imgValue : defaultImg, 
   } 
   
-  const pricesArr = items.map(item => parseFloat(item.price))
-  const totalPrices = (pricesArr.reduce((acc, price) => acc += price, 0)).toLocaleString()
+  const pricesArr = items.map(item => item.price)
+  const totalPrices = pricesArr.reduce((acc, price) => acc += price, 0)
 
   if(value !== '') {
     setTotal(totalPrices)
@@ -96,21 +90,26 @@ const handleAdd = () => {
     e.key === 'Enter' && handleAdd() 
   }
 
+  // Delete Item
+  const handleDelete = (id) => {
+    const filteredItems = items.filter(items => items.id !== id)
+    const deletedItem = items.filter(items => items.id === id)
+    const deletedItemPrice = deletedItem[0].price
+    const filteredTotal = parseFloat(total) - deletedItemPrice
+    
+    // console.log(deletedItemPrice)
+    console.log(total);
+    console.log(parseFloat(total));
+    console.log(deletedItemPrice);
+    // console.log(filteredTotal)
+    setItems(filteredItems)
+    setTotal(filteredTotal)    
+  }
+
 // Render The Item's List
   const itemList = items.map(item => 
     (
-      <ListItem key={item.id}> 
-
-        <SpacedBtwWrapper>
-          {/* <img src={item.img} style={{height:"3em", width:"5em"}}/> */}
-          <div style={{marginRight: "3em", width: "5em", textAlign: "left"}}>
-            {item.value} 
-          </div>
-          {item.price > 0 ? `$${(item.price).toLocaleString()}` : ''}
-        </SpacedBtwWrapper>
-
-        <DeleteItemBtn onClick={() => handleDelete(item.id)}>X</DeleteItemBtn> 
-      </ListItem>
+      <ItemList onClickFunction={() => handleDelete(item.id)} key={item.id} id={item.id} value={item.value} price={item.price} />
     ))
   
   // Alert the user if there's no items yet
@@ -125,18 +124,7 @@ const handleAdd = () => {
       <Input type="text" step="0.1" min="0" onKeyDown={handleKeyDown} onChange={handlePriceChange} value={price} placeholder="100.50"/>
       {/* <Input type="url" onKeyDown={handleKeyDown} name="itemImg" id="itemImg" onChange={handleImgChange} value={imgValue} placeholder="Image URL"/> */}
 
-      <Select onKeyDown={handleKeyDown} name="selectNumbers" id="selectNumbers" onChange={handleSelectQuant}>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
-      </Select>
+      <SelectInput onKeyDownFunc={handleKeyDown} onChangeFunc={handleSelectQuant}/>
 
       <AddButton onKeyDown={handleKeyDown} onClick={handleAdd}>Add</AddButton>
     </SpacedBtwWrapper>
@@ -146,11 +134,11 @@ const handleAdd = () => {
       {noItemsAlert}
     </UnList>
 
-    <hr style={{color: "black", backgroundColor:"black", width:"100%", marginTop:"0"}}/>
+    <HLine />
 
-    <h3 style={{width: "100%", textAlign: "left", margin: "0"}}>Total: ${total}</h3>
-
-    <DeleteAllBtn onClick={handleDeleteAllItems}>Delete All</DeleteAllBtn>
+    <Total total={total}/>
+    
+    <DeleteAllButton deleteAllFunction={handleDeleteAllItems} />
   </CardWrapper>
   );
 }
