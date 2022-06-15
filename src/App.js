@@ -28,10 +28,6 @@ function App() {
   const handleItemChange = (e) => {
     setValue(e.target.value)
   }
-// Save IMG URL Input Changes 
-  // const handleImgChange = (e) => {
-  //   setImgValue(e.target.value)
-  // }
 
   const handlePriceChange = (e) => {
     setPrice(e.target.value)
@@ -49,16 +45,9 @@ function App() {
     const itemQuant = e.target.value
     setQuant(itemQuant)
   }
-  
-  // const isValidUrl = (str) => {
-  //   const matchPattern = /^(?:\w+:)?\/\/([^\s\.]+\.\S{2}|localhost[\:?\d]*)\S*$/;
-  //   return matchPattern.test(str);
-  // }
 
 // Add Input To The List
 const handleAdd = () => {
-  
-  // const defaultImg = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS83g_cMIkYmsVOSF_pn9jkF9Ty849X-2vzaA&usqp=CAU'
     
   const item = {
     id: uniqueId,
@@ -66,21 +55,20 @@ const handleAdd = () => {
     quant: quant, 
     price: quant > 1 ? parseFloat(price) * quant : parseFloat(price),
     isCompleted: false
-    // img: isValidUrl(imgValue) ? imgValue : defaultImg, 
   } 
   
+  // Add Item
+  { value !== '' ? setItems([...items, item]) : alert("Please enter an item to buy") }
+
   const pricesArr = items.map(item => item.price)
   const totalPrices = pricesArr.reduce((acc, price) => acc += price, 0)
-
-  if(value !== '') {
-    setTotal(totalPrices)
-    setItems([...items, item])
-  } else {
-    alert("Please enter a present")
-  }
+  console.log(pricesArr)
+  console.log(totalPrices)
+  
+  setTotal(totalPrices)
   setValue('')
   setPrice('')
-  // setImgValue('')
+
 }
   
 // Add the input pressing 'enter' key
