@@ -48,6 +48,11 @@ function App() {
 
 // Add Input To The List
 const handleAdd = () => {
+
+  if(value == '') {
+    alert("Please enter an item to buy")
+    return;
+  }
     
   const item = {
     id: uniqueId,
@@ -56,19 +61,18 @@ const handleAdd = () => {
     price: quant > 1 ? parseFloat(price) * quant : parseFloat(price),
     isCompleted: false
   } 
-  
-  // Add Item
-  { value !== '' ? setItems([...items, item]) : alert("Please enter an item to buy") }
 
-  const pricesArr = items.map(item => item.price)
-  const totalPrices = pricesArr.reduce((acc, price) => acc += price, 0)
-  console.log(pricesArr)
-  console.log(totalPrices)
+  // Add Item
+  const newItemsArray = [...items, item];
   
+  const totalPrices = newItemsArray.reduce((acc, item) => acc += item.price, 0)
+  
+  console.log(totalPrices)
+
+  setItems(newItemsArray)  
   setTotal(totalPrices)
   setValue('')
   setPrice('')
-
 }
   
 // Add the input pressing 'enter' key
